@@ -1,25 +1,17 @@
-% Clear the workspace 
-clear;
+% Tangia Zhou
+% Robot Movement and Control
 
-% Close all the figures
-close all;
+clear; % Clear the workspace 
+close all; % Close all figures
 
-% Part A Piecewise Linear Approximation
+% Piecewise Linear Approximation
 
-% Load in the mat file
-load robpos.mat;
+load robpos.mat; % Load in the mat file
 
-% We define rob_N as the total number of points
-rob_N= height(robpos);
-
-% rob_t represents the first column 
-rob_t= robpos(:,1);
-
-% rob_x is the x locations of the robot (vector)
-rob_x= robpos(:,2);
-
-% rob_y is the y location of the robot
-rob_y= robpos(:,3);
+rob_N= height(robpos); % Total number of points
+rob_t= robpos(:,1); % First column
+rob_x= robpos(:,2); % x location of the robot (vector)
+rob_y= robpos(:,3); % y location of the robot
 
 % Plotting the robot location and the piecewise approximation of the robot
 figure;
@@ -28,17 +20,17 @@ xlabel('x(t)');
 ylabel('y(t)')
 title('Piecewise Linear Approximation of the Robot Location');
 
-% Creating a vector rob_N-1 all zeros
+% Creating a vector rob_N-1 with all zeros
 rob_vx=zeros(rob_N-1,1);
 rob_vy=zeros(rob_N-1,1);
 rob_v= zeros(rob_N-1,1);
 rob_t1=rob_t(1:(rob_N-1));
 
-% Calculating the elements using the approach from the question
+% Calculating the elements
 for i=1:rob_N-1
-rob_vx(i)=(rob_x(i+1)-rob_x(i))/(rob_t(i+1)-rob_t(i));
-rob_vy(i)=(rob_y(i+1)-rob_y(i))/(rob_t(i+1)-rob_t(i));
-rob_v(i)=sqrt(rob_vx(i)^2+rob_vy(i)^2);
+    rob_vx(i)=(rob_x(i+1)-rob_x(i))/(rob_t(i+1)-rob_t(i));
+    rob_vy(i)=(rob_y(i+1)-rob_y(i))/(rob_t(i+1)-rob_t(i));
+    rob_v(i)=sqrt(rob_vx(i)^2+rob_vy(i)^2);
 end
 
 % Plotting velocity
@@ -48,12 +40,12 @@ xlabel('Time');
 ylabel('Velocity')
 title('Velocity of the Robot at Different Times');
 
-% Calcultaing the acceleration
+% Calculating acceleration
 rob_a=zeros(rob_N-2,1);
 rob_t2=rob_t(1:(rob_N-2));
 
 for i=1:rob_N-2
-rob_a(i)=(rob_v(i+1)-rob_v(i))/(rob_t(i+1)-rob_t(i));
+    rob_a(i)=(rob_v(i+1)-rob_v(i))/(rob_t(i+1)-rob_t(i));
 end
 
 % Plotting Acceleration
@@ -63,13 +55,12 @@ xlabel('Time');
 ylabel('Acceleration')
 title('Acceleration of the Robot at Different Times');
 
-% Part B 
+% Polynomial Curve Fitting 
 
-% Let N be order of the polynomial
-N=5;
+N=20; % Order of the polynomial
 
-p_x=polyfit(rob_t,rob_x,N); % approximating x components
-p_y=polyfit(rob_t,rob_y,N); % approximating y components
+p_x=polyfit(rob_t,rob_x,N); % Approximating x components
+p_y=polyfit(rob_t,rob_y,N); % Approximating y components
 
 t=linspace(0,60,501); % from 0 to 60 seconds with 501 elements
 
@@ -112,14 +103,14 @@ xlabel('Time');
 ylabel('Acceleration')
 title('Curve Fit for Acceleration');
 
-% Part C Path Control
+% Path Control
 
-% c=1 is clockwise c=-1 is counterclockwise
+% c=1 clockwise, c=-1 counterclockwise
 c=1;
  
-% define the coordinates of the center of the circle path
+% Define coordinates of the center of the circular path
 r=1.2;
-theta=pi/6; % This is assumed
+theta=pi/6; % Angle is assumed
 x0=r*cos(theta); % Center of the path
 y0=r*sin(theta);
 
