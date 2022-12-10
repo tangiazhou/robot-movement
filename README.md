@@ -1,4 +1,4 @@
-## Robot Movement and Control 
+## Robot Movement and Control 🤖
 
 Robotic vehicles are machines that move autonomously or are remotely controlled. In this model, we will be considering a robotic vehicle 2D space. To understand how they operate and essentially optimize their performance, it is important to know the path they have taken over a certain interval of time. The problem is that automatic vehicles will only save their location or send it to the central computer at discrete time intervals. This means that we do not know the exact path they are taking. Although these intervals may be short, we can use them to model the motion of the vehicle. 
 
